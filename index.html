@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -330,6 +329,8 @@ h2 { font-size: clamp(29px, 6vw, 48px); }
   position: relative;
 }
 
+#letterContent .wish { white-space: pre-line; }
+
 .wish strong { color: #ffc6e6; font-weight: 500; }
 
 .counter {
@@ -549,7 +550,7 @@ h2 { font-size: clamp(29px, 6vw, 48px); }
 }
 
 .fill {
-  width: 16.666%;
+  width: 11.111%;
   height: 100%;
   background: linear-gradient(90deg, #c6a9ff, #ffb6de, #ffe6b5);
   box-shadow: 0 0 12px #f5a9e7;
@@ -620,6 +621,67 @@ h2 { font-size: clamp(29px, 6vw, 48px); }
   bottom: 0;
   opacity: .01;
   pointer-events: none;
+}
+
+
+/* ===== EXTRA PREMIUM SECTIONS ===== */
+.section-kicker {
+  display:inline-flex; align-items:center; gap:8px; margin:0 auto 18px;
+  padding:8px 13px; border:1px solid #ffffff22; border-radius:30px;
+  background:#ffffff09; color:#f4dff8; font-size:10px; letter-spacing:1.4px;
+}
+.feature-grid {
+  display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin-top:24px;
+}
+.feature-tile {
+  position:relative; overflow:hidden; padding:20px 14px; min-height:125px;
+  border:1px solid #ffffff20; border-radius:20px; color:#fff0fb;
+  background:linear-gradient(145deg,#ffffff13,#ffffff04);
+  backdrop-filter:blur(14px); cursor:pointer; transition:transform .25s,border-color .25s;
+}
+.feature-tile:hover { transform:translateY(-4px); border-color:#ffc5e977; }
+.feature-tile .tile-icon { display:block; font-size:29px; margin-bottom:10px; }
+.feature-tile strong { display:block; font-size:12px; font-weight:600; }
+.feature-tile span:last-child { display:block; margin-top:7px; color:#d7c5e9; font-size:10px; line-height:1.7; }
+.memory-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-top:22px; }
+.memory-card {
+  min-height:125px; display:flex; flex-direction:column; justify-content:center; align-items:center;
+  gap:9px; border:1px solid #ffffff20; border-radius:18px;
+  background:linear-gradient(145deg,#ffffff13,#ffffff04); padding:12px;
+  transition:transform .25s;
+}
+.memory-card:hover { transform:translateY(-4px) rotate(-1deg); }
+.memory-card .memory-emoji { font-size:31px; }
+.memory-card b { font-size:11px; font-weight:500; }
+.memory-card small { font-size:9px; color:#d8c7ea; line-height:1.6; }
+.lucky-orb {
+  width:145px;height:145px;margin:24px auto;display:grid;place-items:center;
+  border-radius:50%;border:1px solid #ffffff40;
+  background:radial-gradient(circle at 30% 25%,#fff7ff55,#d9b5ff1c 45%,#ffffff04 70%);
+  box-shadow:0 0 45px #e4a9ff25,inset 0 0 25px #ffffff10;
+  font-size:57px; cursor:pointer; animation:giftFloat 3s ease-in-out infinite;
+}
+.lucky-result {
+  min-height:82px; display:grid;place-items:center; padding:20px;
+  border:1px solid #ffffff20;border-radius:20px;background:#ffffff09;
+  color:#ffe0f2;font-size:14px;line-height:1.9;
+}
+.quiz-options { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px; }
+.quiz-option {
+  padding:13px 10px;border:1px solid #ffffff25;border-radius:15px;
+  background:#ffffff08;color:#f8eafa;cursor:pointer;font-size:11px;transition:.2s;
+}
+.quiz-option:hover,.quiz-option.selected {
+  background:linear-gradient(110deg,#ffe0f3,#d3c1ff);color:#2a1235;border-color:transparent;
+}
+#quizFeedback { min-height:44px;margin-top:15px;color:#ffe0f2;font-size:12px;line-height:1.8; }
+.personal-note { font-family:"Dancing Script",cursive;font-size:25px;color:#ffe3f4;line-height:1.6;margin-top:18px; }
+@media (max-width:600px) {
+  .feature-grid { gap:8px; }
+  .feature-tile { min-height:115px;padding:16px 10px; }
+  .memory-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .memory-card { min-height:115px; }
+  .quiz-options { gap:8px; }
 }
 
 @media (max-width: 600px) {
@@ -751,12 +813,79 @@ h2 { font-size: clamp(29px, 6vw, 48px); }
     <p class="small" id="giftHint">Chạm vào hộp quà để mở nhé 🎁</p>
     <div id="giftContent" hidden>
       <p class="subtitle">Tớ gửi cậu món quà nhỏ ♡</p>
-      <button class="btn" onclick="finale()">Mở ra phép màu 🎆</button>
+      <button class="btn" onclick="go(5)">Khám phá ngôi sao may mắn →</button>
     </div>
   </section>
 
+
   <section class="scene">
-    <div class="eyebrow">Chapter V · Made with love</div>
+    <div class="eyebrow">Chapter V · Lucky star</div>
+    <div class="section-kicker">☄ YOUR LITTLE MAGIC ☄</div>
+    <h2 class="script">Chạm vào ngôi sao may mắn</h2>
+    <p class="subtitle">Mỗi lần chạm, vũ trụ sẽ gửi cậu một lời nhắn nho nhỏ. Thử xem hôm nay cậu nhận được điều gì nhé!</p>
+    <button class="lucky-orb" onclick="drawLucky()" aria-label="Rút lời nhắn may mắn">🌟</button>
+    <div class="lucky-result" id="luckyResult" aria-live="polite">Một lời nhắn đang lấp lánh chờ cậu...</div>
+    <button class="btn" onclick="drawLucky()">Rút lời nhắn khác ✨</button>
+    <br>
+    <button class="btn secondary" onclick="go(4)">← Quay lại hộp quà</button>
+    <button class="btn" onclick="go(6)">Một câu hỏi vui →</button>
+  </section>
+
+  <section class="scene">
+    <div class="eyebrow">Chapter VI · A tiny quiz</div>
+    <div class="section-kicker">♡ JUST FOR FUN ♡</div>
+    <h2 class="gradient">Nếu hôm nay có một điều ước...</h2>
+    <p class="subtitle">Cậu sẽ chọn điều gì cho bản thân? Chọn câu trả lời khiến cậu vui nhất nha.</p>
+    <div class="card">
+      <div class="card-icon">💭</div>
+      <p class="wish" style="min-height:auto">Điều gì sẽ làm ngày hôm nay của cậu tuyệt hơn?</p>
+      <div class="quiz-options" id="quizOptions">
+        <button class="quiz-option" onclick="answerQuiz(this,'Một ngày thật bình yên 🌙')">🌙 Bình yên</button>
+        <button class="quiz-option" onclick="answerQuiz(this,'Một bất ngờ thật dễ thương 🎁')">🎁 Bất ngờ</button>
+        <button class="quiz-option" onclick="answerQuiz(this,'Có người lắng nghe và sẻ chia 💌')">💌 Được sẻ chia</button>
+        <button class="quiz-option" onclick="answerQuiz(this,'Một cơ hội mới để tiến gần ước mơ ⭐')">⭐ Ước mơ</button>
+      </div>
+      <div id="quizFeedback" aria-live="polite">Chọn một đáp án để nhận lời nhắn dành riêng cho cậu.</div>
+    </div>
+    <button class="btn secondary" onclick="go(5)">← Ngôi sao may mắn</button>
+    <button class="btn" onclick="go(7)">Viết điều ước của cậu →</button>
+  </section>
+
+  <!-- PHẦN 8: ƯỚC NGUYỆN -->
+  <section class="scene">
+    <div class="eyebrow">Chapter VII · Make a wish</div>
+    <div class="section-kicker">🌠 SEND YOUR WISH TO THE UNIVERSE 🌠</div>
+    <h2 class="script">Điều ước của cậu</h2>
+    <p class="subtitle">Hãy viết một điều cậu mong muốn. Khi sẵn sàng, gửi nó lên bầu trời sao nhé. Điều ước chỉ hiển thị trên trang này, không được gửi đi đâu cả.</p>
+    <div class="card">
+      <div class="card-icon">🌌</div>
+      <textarea id="wishInput" maxlength="220" placeholder="Tớ ước rằng..." aria-label="Viết điều ước của cậu" style="width:100%;min-height:110px;resize:vertical;padding:15px;border-radius:15px;border:1px solid #ffffff30;background:#130d28;color:#fff0fb;font:inherit;font-size:13px;line-height:1.8;outline:none"></textarea>
+      <button class="btn" onclick="sendWish()">Gửi điều ước ✨</button>
+      <div class="lucky-result" id="wishResult" aria-live="polite" style="margin-top:18px">Một điều ước nhỏ cũng có thể mở ra hy vọng lớn. 💗</div>
+    </div>
+    <button class="btn secondary" onclick="go(6)">← Quay lại câu hỏi vui</button>
+    <button class="btn" onclick="go(8)">Nhận một lời nhắn bất ngờ →</button>
+  </section>
+
+  <!-- PHẦN 9: LỜI NHẮN BẤT NGỜ -->
+  <section class="scene">
+    <div class="eyebrow">Chapter VIII · A little surprise</div>
+    <div class="section-kicker">💌 A MESSAGE FOR YOU 💌</div>
+    <h2 class="gradient">Một lời nhắn từ vũ trụ</h2>
+    <p class="subtitle">Đôi khi, điều chúng ta cần chỉ là một lời nhắc nhỏ rằng mình xứng đáng với những điều tốt đẹp.</p>
+    <div class="card">
+      <div class="card-icon" id="surpriseIcon">💫</div>
+      <p class="wish" id="surpriseText" aria-live="polite">Chạm nút bên dưới để nhận lời nhắn dành cho cậu.</p>
+    </div>
+    <button class="btn" onclick="surpriseMessage()">Mở lời nhắn ✨</button>
+    <br>
+    <button class="btn secondary" onclick="go(7)">← Quay lại điều ước</button>
+    <button class="btn" onclick="finale()">Đến màn pháo hoa cuối cùng →</button>
+  </section>
+
+  <!-- PHẦN 10: KẾT THÚC -->
+  <section class="scene">
+    <div class="eyebrow">Chapter IX · Made with love</div>
     <div class="orbit-heart">
       <div class="orbit"></div>
       <div class="orbit second"></div>
@@ -773,6 +902,7 @@ h2 { font-size: clamp(29px, 6vw, 48px); }
     <div class="signature">Tớ gửi cậu món quà nhỏ ♡</div>
     <p class="small">Một lời chúc bé xíu giữa vũ trụ rộng lớn.</p>
     <button class="btn" onclick="moreFireworks()">Thêm pháo hoa ✨</button>
+    <button class="btn secondary" onclick="go(5)">Xem lại ngôi sao may mắn ♡</button>
     <button class="btn secondary" onclick="restart()">Xem lại từ đầu ↻</button>
   </section>
 
@@ -781,7 +911,7 @@ h2 { font-size: clamp(29px, 6vw, 48px); }
 <footer class="progress">
   <div class="progress-meta">
     <span id="chapter">A UNIVERSE MADE FOR YOU</span>
-    <span id="count">01 / 06</span>
+    <span id="count">01 / 10</span>
   </div>
   <div class="track"><div class="fill" id="fill"></div></div>
 </footer>
@@ -827,7 +957,7 @@ const wishes = [
 ];
 
 const scenes = [...document.querySelectorAll(".scene")];
-const names = ["A UNIVERSE MADE FOR YOU","A SPECIAL DAY","30 LITTLE WISHES","A SECRET LETTER","THE GIFT","MADE WITH LOVE"];
+const names = ["A UNIVERSE MADE FOR YOU","A SPECIAL DAY","30 LITTLE WISHES","A SECRET LETTER","THE GIFT","LUCKY STAR","A TINY QUIZ","MAKE A WISH","A LITTLE SURPRISE","MADE WITH LOVE"];
 let page = 0;
 let wishIndex = 0;
 let activeCategory = "Tất cả";
@@ -851,8 +981,8 @@ function go(n) {
   scenes[page].classList.add("active");
   document.getElementById("chapter").textContent = names[page];
   document.getElementById("count").textContent =
-    String(page + 1).padStart(2, "0") + " / 06";
-  document.getElementById("fill").style.width = ((page + 1) / 6 * 100) + "%";
+    String(page + 1).padStart(2, "0") + " / " + String(scenes.length).padStart(2, "0");
+  document.getElementById("fill").style.width = ((page + 1) / scenes.length * 100) + "%";
   requestSound();
   sparkle(innerWidth / 2, innerHeight * .45, 15);
 }
@@ -949,7 +1079,7 @@ function finale() {
   flower.classList.add("fly");
 
   setTimeout(() => {
-    go(5);
+    go(9);
     fireworkShow();
   }, 1500);
   setTimeout(fireworkShow, 2400);
@@ -977,6 +1107,10 @@ function restart() {
   document.getElementById("giftContent").hidden = true;
   document.getElementById("giftHint").textContent = "Chạm vào hộp quà để mở nhé 🎁";
   document.getElementById("flower").classList.remove("fly");
+  document.getElementById("wishInput").value = "";
+  document.getElementById("wishResult").textContent = "Một điều ước nhỏ cũng có thể mở ra hy vọng lớn. 💗";
+  document.getElementById("surpriseIcon").textContent = "💫";
+  document.getElementById("surpriseText").textContent = "Chạm nút bên dưới để nhận lời nhắn dành cho cậu.";
 
   categories.querySelectorAll(".category").forEach(b => {
     b.classList.toggle("active", b.textContent === "Tất cả");
@@ -984,6 +1118,74 @@ function restart() {
 
   renderWish();
   go(0);
+}
+
+
+/* ===== LUCKY STAR + MINI QUIZ ===== */
+const luckyMessages = [
+  "Hôm nay, mong một điều dễ thương sẽ tìm đến cậu đúng lúc. 🌷",
+  "Cậu không cần làm mọi thứ thật hoàn hảo; cứ tiến lên theo nhịp của mình nhé. ✨",
+  "Mong cậu gặp được những người khiến cậu được là chính mình. 💗",
+  "Một ngày bình thường cũng có thể trở thành kỷ niệm đẹp. Hãy để ý những điều nhỏ xíu nhé. 🌙",
+  "Chúc cậu có thêm can đảm để thử điều mới và tự hào về từng bước nhỏ. ⭐",
+  "Nếu hôm nay hơi mệt, hãy cho mình một khoảng nghỉ dịu dàng nha. ☁️",
+  "Vũ trụ gửi cậu một lời nhắc: những điều tốt đẹp vẫn đang trên đường đến. 💌"
+];
+let lastLucky = -1;
+function drawLucky() {
+  let next = Math.floor(Math.random() * luckyMessages.length);
+  if (luckyMessages.length > 1 && next === lastLucky) next = (next + 1) % luckyMessages.length;
+  lastLucky = next;
+  document.getElementById("luckyResult").textContent = luckyMessages[next];
+  sparkle(innerWidth / 2, innerHeight * .43, 26);
+}
+function answerQuiz(button, message) {
+  document.querySelectorAll(".quiz-option").forEach(item => item.classList.remove("selected"));
+  button.classList.add("selected");
+  const replies = {
+    "Một ngày thật bình yên 🌙": "Mong cậu có một ngày nhẹ nhàng, không cần vội vã và luôn được là chính mình. 🌙",
+    "Một bất ngờ thật dễ thương 🎁": "Vậy thì mong hôm nay có một bất ngờ nhỏ khiến cậu cười thật tươi! 🎁",
+    "Có người lắng nghe và sẻ chia 💌": "Mong cậu luôn có người sẵn lòng lắng nghe, thấu hiểu và ở bên khi cần. 💌",
+    "Một cơ hội mới để tiến gần ước mơ ⭐": "Mong cậu gặp đúng cơ hội, có đủ tự tin và từng bước chạm gần hơn tới ước mơ. ⭐"
+  };
+  document.getElementById("quizFeedback").textContent = replies[message] || "Chúc điều cậu chọn sẽ đến theo cách thật đẹp. 💗";
+  sparkle(innerWidth / 2, innerHeight * .55, 18);
+}
+
+/* ===== ƯỚC NGUYỆN + LỜI NHẮN BẤT NGỜ ===== */
+function sendWish() {
+  const input = document.getElementById("wishInput");
+  const result = document.getElementById("wishResult");
+  const wish = input.value.trim();
+
+  if (!wish) {
+    toast("Viết một điều ước trước nhé 🌠");
+    input.focus();
+    return;
+  }
+
+  result.textContent = "Điều ước của cậu đã được gửi vào bầu trời tưởng tượng. Mong cậu luôn có niềm tin và từng bước biến điều mình mong muốn thành hiện thực. ✨\n\n“" + wish + "”";
+  sparkle(innerWidth / 2, innerHeight * .45, 45);
+  floating(12);
+  toast("Điều ước đã bay lên bầu trời sao! ✨");
+}
+
+const surpriseMessages = [
+  {icon:"🌷", text:"Cậu không cần phải làm tất cả mọi thứ trong một ngày. Từng bước nhỏ cũng đáng được tự hào."},
+  {icon:"🌙", text:"Mong cậu luôn có những buổi tối bình yên, những giấc ngủ ngon và một ngày mai dịu dàng hơn."},
+  {icon:"💗", text:"Đừng quên dành cho bản thân sự tử tế mà cậu vẫn luôn dành cho những người xung quanh nhé."},
+  {icon:"⭐", text:"Có thể cậu chưa đến nơi mình muốn, nhưng mỗi bước chân đều đang giúp cậu tiến về phía trước."},
+  {icon:"🦋", text:"Cậu được phép thay đổi, học hỏi và lớn lên theo cách riêng của mình. Không cần so sánh với bất kỳ ai."},
+  {icon:"🎀", text:"Mong hôm nay sẽ có một điều nhỏ xíu khiến cậu bật cười và nhớ rằng cuộc sống vẫn có nhiều điều dễ thương."}
+];
+let lastSurprise = -1;
+function surpriseMessage() {
+  let index = Math.floor(Math.random() * surpriseMessages.length);
+  if (surpriseMessages.length > 1 && index === lastSurprise) index = (index + 1) % surpriseMessages.length;
+  lastSurprise = index;
+  document.getElementById("surpriseIcon").textContent = surpriseMessages[index].icon;
+  document.getElementById("surpriseText").textContent = surpriseMessages[index].text;
+  sparkle(innerWidth / 2, innerHeight * .48, 24);
 }
 
 /* ===== FLOATING DECORATIONS ===== */
